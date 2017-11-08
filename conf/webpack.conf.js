@@ -15,12 +15,12 @@ module.exports = {
           'json-loader'
         ]
       },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        enforce: 'pre'
-      },
+      // {
+      //   test: /\.js$/,
+      //   exclude: /node_modules/,
+      //   loader: 'eslint-loader',
+      //   enforce: 'pre'
+      // },
       {
         test: /\.css$/,
         loaders: [
@@ -41,6 +41,12 @@ module.exports = {
         test: /\.html$/,
         loaders: [
           'html-loader'
+        ]
+      },
+      {
+        test: /\.(png|jpg|jpeg|svg)$/,
+        loaders:[
+          'file-loader'
         ]
       }
     ]

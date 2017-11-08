@@ -110,3 +110,8 @@ a:hover {
   font-size: 1.5rem;
   margin: 0 0 2rem 0;
 }
+#mynetwork {
+  width: 100%;
+  height: 600px;
+  border: 1px solid lightgray;
+}

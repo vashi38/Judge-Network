@@ -1,0 +1,25 @@
+<div class="flex">
+  <div class="col-lg-6 col-sm-6">
+    <div class="input-group input-group-lg col-lg-12 col-sm-12">
+      <span class="input-group-addon" id="globalSearchicon">
+        <i class="glyphicon glyphicon-search"></i>
+      </span>
+      <input id="GlobalSearch" class="form-control" type="text" name="globalSearch" value="" placeholder="Search by Name or Genere"
+        aria-discribedby="globalSearchicon" ng-model="globalSearch" ng-keypress="change_selected($event)" ng-blur="focus_lost()">
+      <span>
+        <i class="glyphicon glyphicon-remove-circle searchClear" ng-click="globalSearch = ''">
+        </i>
+      </span>
+    </div>
+    <span class="col-lg-12 " style="padding:0px;" ng-show="globalSearch!= '' && !selected ">
+      <div class="autoCompleteContainer col-lg-12">
+        <ul>
+          <li ng-repeat="option in options | filter: {genres_array:globalSearch}" ng-click="selectOption(option.movie_title)">
+            {{option.movie_title}}
+            <span class="genres">{{option.genres}}</span>
+          </li>
+        </ul>
+      </div>
+    </span>
+  </div>
+</div>
