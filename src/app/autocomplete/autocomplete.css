@@ -1,0 +1,94 @@
+.flex {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  width: inherit;
+}
+
+global-search-dir {
+  width: inherit;
+}
+
+.searchClear {
+  position: absolute;
+  top: 15px;
+  right: 9px;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.autoCompleteContainer {
+  position: absolute;
+  padding: 0px;
+  height: 177px;
+  overflow: hidden;
+}
+
+.autoCompleteContainer ul {
+  list-style: none;
+  padding-left: 0;
+  /*background-color: white;*/
+}
+
+.autoCompleteContainer ul li {
+  padding: 10px;
+  border-left: solid;
+  border-right: solid;
+  border-bottom: solid;
+  border-width: 2px;
+  border-color: rgba(128, 128, 128, 0.18);
+  background-color: white;
+}
+
+.active {
+  background-color: rgba(128, 128, 128, 0.14) !important;
+  background: #eaeaea !important;
+  font-weight: bold !important;
+}
+
+.autoCompleteContainer ul li:hover {
+  background-color: rgba(128, 128, 128, 0.14);
+  cursor: pointer;
+  background: #eaeaea;
+  font-weight: bold !important;
+}
+
+.sb {
+  position: fixed;
+  width: inherit;
+  z-index: 10;
+  background-color: white;
+  height: 84px;
+  padding-top: 20px;
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.Container {
+  width: 510px;
+  height: 200px;
+  border: solid;
+  border-width: 1px;
+  border-radius: 15px;
+  background-color: white;
+  top: 100px;
+  margin-top: 30px;
+}
+
+.searchBox {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px;
+}
+
+.searchBox:focus,
+.searchBox:active {
+  outline: none;
+}

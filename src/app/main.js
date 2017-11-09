@@ -1,25 +1,65 @@
 import vis from 'vis';
 import _ from 'underscore';
+import angular from 'angular';
 
-function mainController($http, getService) {
+function mainController($http, getService, $scope) {
   let allData;
-  let judgeList;
   const am = this;
-  const nodes = new vis.DataSet([
-    {id: 1, label: 'Node 1'},
-    {id: 2, label: 'Node 2'},
-    {id: 3, label: 'Node 3'},
-    {id: 4, label: 'Node 4'},
-    {id: 5, label: 'Node 5'}
+  let network;
+  
+  const nodes = new vis.DataSet([{
+    id: 1,
+    label: 'Node 1'
+  },
+  {
+    id: 2,
+    label: 'Node 2'
+  },
+  {
+    id: 3,
+    label: 'Node 3'
+  },
+  {
+    id: 4,
+    label: 'Node 4'
+  },
+  {
+    id: 5,
+    label: 'Node 5'
+  }
   ]);
-// create an array with edges
-  const edges = new vis.DataSet([
-    {from: 1, to: 3, width: 16, length: 80 * 1, smooth: false, title: '1st'},
-    {from: 1, to: 2, length: 80 * 2, smooth: false, title: '2st'},
-    {from: 1, to: 4, length: 80 * 3, smooth: false, title: '3st'},
-    {from: 1, to: 5, length: 80 * 4, smooth: false, title: '4st'}
+  // create an array with edges
+  const edges = new vis.DataSet([{
+    from: 1,
+    to: 3,
+    width: 16,
+    length: 80 * 1,
+    smooth: false,
+    title: '1st'
+  },
+  {
+    from: 1,
+    to: 2,
+    length: 80 * 2,
+    smooth: false,
+    title: '2st'
+  },
+  {
+    from: 1,
+    to: 4,
+    length: 80 * 3,
+    smooth: false,
+    title: '3st'
+  },
+  {
+    from: 1,
+    to: 5,
+    length: 80 * 4,
+    smooth: false,
+    title: '4st'
+  }
   ]);
-// provide the data in the vis format
+  // provide the data in the vis format
   const data = {
     nodes,
     edges
@@ -49,7 +89,7 @@ function mainController($http, getService) {
     });
   };
   const getUniqLowyerList = (allList, list) => {
-    let uniqList = _.uniq(list);
+    const uniqList = _.uniq(list);
     return uniqList.map(item => {
       return {
         data: item,
@@ -68,27 +108,46 @@ function mainController($http, getService) {
       return item;
     });
   };
-  const convertFor = allList => {
-    const judgeName = 'S/sh.rajendra';
-    const listForJudge = filterJudge(allList, judgeName);
+  const convertFor = name => {
+    const allList = allData;
+    am.judgeName = name;
+    const listForJudge = filterJudge(allList, am.judgeName);
     const listLawyer = listLowyer(listForJudge);
     const uniqLowyerList = getUniqLowyerList(listForJudge, listLawyer);
     console.log(listForJudge);
     console.log(listLawyer);
     console.log(uniqLowyerList);
+    drawNetwork();
   };
-// initialize your network!
-  const init = function () {
+  // am.selectCb = val => {
+  //   console.log(val);
+  // };
+  // $scope. $watch(am.judgeName, (newValue, oldValue) => {
+  //   console.log(newValue);
+  // });
+
+  const drawNetwork = () => {
     const container = document.getElementById('mynetwork');
-    const network = new vis.Network(container, data, options);
+    network = new vis.Network(container, data, options);
     network.redraw();
+  };
+  am.selectcb = val => {
+    console.log(val);
+    if (am.judgeName !== val) {
+      convertFor(val);
+    }
+  };
+  // initialize your network!
+  const init = function () {
     getService.getData().then(result => {
       allData = result;
-      judgeList = listJudge(allData);
-      convertFor(allData);
+      am.judgeList = listJudge(allData);
+      convertFor('S/sh.rajendra');
+      console.log(am.judgeList);
     });
   };
-  setTimeout(init, 100);
+  init();
+  // setTimeout(init, 100);
 }
 
 export const main = {
