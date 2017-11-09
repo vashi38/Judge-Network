@@ -1,78 +1,27 @@
 import vis from 'vis';
 import _ from 'underscore';
-import angular from 'angular';
+// import angular from 'angular';
 
-function mainController($http, getService, $scope) {
+function mainController($http, getService) {
   let allData;
   const am = this;
   let network;
-
-  let nodes = new vis.DataSet(
-    [{
-        id: 1,
-        label: 'Node 1'
-      },
-      {
-        id: 2,
-        label: 'Node 2'
-      },
-      {
-        id: 3,
-        label: 'Node 3'
-      },
-      {
-        id: 4,
-        label: 'Node 4'
-      },
-      {
-        id: 5,
-        label: 'Node 5'
-      }
-    ]);
-  // create an array with edges
-  let edges = new vis.DataSet([{
-      from: 1,
-      to: 3,
-      width: 16,
-      length: 80 * 1,
-      smooth: false,
-      title: '1st'
-    },
-    {
-      from: 1,
-      to: 2,
-      length: 80 * 2,
-      smooth: false,
-      title: '2st'
-    },
-    {
-      from: 1,
-      to: 4,
-      length: 80 * 3,
-      smooth: false,
-      title: '3st'
-    },
-    {
-      from: 1,
-      to: 5,
-      length: 80 * 4,
-      smooth: false,
-      title: '4st'
-    }
-  ]);
-  // provide the data in the vis format
-  let data = {
-    nodes,
-    edges
-  };
+  let nodes;
+  let edges;
+  let data;
+  let container;
   const options = {
     physics: {
       stabilization: false
     }
   };
+  am.fineDraw = () => {
+    network = new vis.Network(container, data, options);
+    network.redraw();
+  };
   const listJudge = list => {
     return _.uniq(list.map(item => {
-      if (item.judge != '') {
+      if (item.judge !== '') {
         return item.judge;
       }
     }));
@@ -107,28 +56,34 @@ function mainController($http, getService, $scope) {
         });
       });
       return item;
+    }).filter(item => {
+      if (item.data !== null && item.data !== '') {
+        return item;
+      }
     });
   };
   const createDataPack = (name, list) => {
     let counter = 1;
-    let temp_node = [];
-    temp_node = list.map(item => {
-      return {
-        id: counter++,
-        label: item.data
-      };
+    let tempNode = [];
+    tempNode = list.map(item => {
+      if (item.data !== '') {
+        return {
+          id: counter++,
+          label: item.data
+        };
+      }
     });
-    temp_node.push({
+    tempNode.push({
       id: 0,
       label: name,
       color: '#edff00'
     });
-    console.log(temp_node);
-    nodes = new vis.DataSet(temp_node);
-    let temp_edge = [];
+    console.log(tempNode);
+    nodes = new vis.DataSet(tempNode);
+    let tempEdge = [];
     counter = 1;
-    temp_edge = list.map(item => {
-      if (item.label !== '') {
+    tempEdge = list.map(item => {
+      if (item.label !== '' && item.label !== null) {
         return {
           from: 0,
           to: counter++,
@@ -139,11 +94,16 @@ function mainController($http, getService, $scope) {
         };
       }
     });
-    edges = new vis.DataSet(temp_edge);
+    edges = new vis.DataSet(tempEdge);
     data = {
       nodes,
       edges
     };
+  };
+  const drawNetwork = () => {
+    container = document.getElementById('mynetwork');
+    network = new vis.Network(container, data, options);
+    network.redraw();
   };
   const convertFor = name => {
     const allList = allData;
@@ -158,11 +118,6 @@ function mainController($http, getService, $scope) {
     drawNetwork();
   };
 
-  const drawNetwork = () => {
-    const container = document.getElementById('mynetwork');
-    network = new vis.Network(container, data, options);
-    network.redraw();
-  };
   am.selectcb = val => {
     console.log(val);
     if (am.judgeName !== val && am.judgeName !== '') {

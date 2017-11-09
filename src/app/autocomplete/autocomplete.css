@@ -56,7 +56,7 @@ global-search-dir {
 }
 
 .sb {
-  position: fixed;
+  /* position: fixed; */
   width: inherit;
   z-index: 10;
   background-color: white;

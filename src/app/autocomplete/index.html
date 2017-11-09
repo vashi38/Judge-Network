@@ -1,44 +1,10 @@
-<!-- <div class="flex">
-  <div class="col-lg-6 col-sm-6" style="width:40%">
-    <div class="input-group input-group-lg col-lg-12 col-sm-12" style="width:100%">
-      <span class="input-group-addon" id="globalSearchicon">
-        <i class="glyphicon glyphicon-search"></i>
-      </span>
-      <input id="GlobalSearch" class="form-control searchBox" type="text" name="globalSearch" value="" placeholder="Search by Name or Genere"
-        aria-discribedby="globalSearchicon" ng-model="$ctrl.globalSearch" ng-keypress="$ctrl.change_selected($event)" ng-blur="$ctrl.focus_lost()">
-      <span>
-        <i class="glyphicon glyphicon-remove-circle searchClear" ng-click="$ctrl.globalSearch = ''">
-        </i>
-      </span>
-    </div>
-    <span class="col-lg-12 " style="padding:0px;" ng-show="$ctrl.globalSearch!= '' && !$ctrl.selected ">
-      <div class="autoCompleteContainer col-lg-12">
-        <ul>
-          <li ng-repeat="option in $ctrl.options | filter: $ctrl.globalSearch" ng-click="$ctrl.selectOption(option)">
-            {{option}}
-          </li>
-        </ul>
-      </div>
-    </span>
-  </div>
-</div> -->
-
-
 <div class="flex" >
   <div class="col-lg-6 col-sm-6" style = "width:40%">
     <div class="input-group input-group-lg col-lg-12 col-sm-12" style = "width:100%">
-      <span class="input-group-addon" id="globalSearchicon">
-        <i class="glyphicon glyphicon-search"></i>
-      </span>
       <input id = "GlobalSearch" class="form-control searchBox" type="text" name="globalSearch"
         value="" placeholder="Search by Name"
         aria-discribedby="globalSearchicon" ng-model = "$ctrl.globalSearch"
-         ng-blur = "$ctrl.focus_lost()" ng-keyup = "$ctrl.update_temp($event)">
-      <span>
-        <i class="glyphicon glyphicon-remove-circle searchClear"
-          ng-click = "$ctrl.globalSearch = ''" ng-show = "$ctrl.globalSearch!= ''">
-        </i>
-      </span>
+         ng-blur = "$ctrl.focusLost()" ng-keyup = "$ctrl.updateTemp($event)">
     </div>
     <span class = "col-lg-12 " style = "padding:0px;"
       ng-show = "$ctrl.globalSearch!= '' && !$ctrl.selected ">
@@ -53,3 +19,4 @@
       </div>
     </span>
   </div>
+</div>

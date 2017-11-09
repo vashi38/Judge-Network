@@ -1,10 +1,13 @@
 
 <div class="sb" style="width:100%">
-    <auto-complete options="$ctrl.judgeList" optselected="$ctrl.judgeName" style="width:100%" onselectcb = '$ctrl.selectcb'></auto-complete>    
+    <auto-complete options="$ctrl.judgeList" optselected="$ctrl.judgeName" style="width:100%" onselectcb = '$ctrl.selectcb'></auto-complete>   
+    
 </div>
 
-
-<div id="mynetwork"></div>
+<div class="flex" style="width:100%; height: 80%; z-index: 1" >
+  <input type="button" value="Fine me" ng-click="$ctrl.fineDraw()"> 
+  <div id="mynetwork" style = "width:50%; height:100%"></div>  
+</div>
 
 <!-- <div class="main-container">
   <fountain-header></fountain-header>
