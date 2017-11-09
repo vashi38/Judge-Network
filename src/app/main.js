@@ -6,67 +6,68 @@ function mainController($http, getService, $scope) {
   let allData;
   const am = this;
   let network;
-  
-  const nodes = new vis.DataSet([{
-    id: 1,
-    label: 'Node 1'
-  },
-  {
-    id: 2,
-    label: 'Node 2'
-  },
-  {
-    id: 3,
-    label: 'Node 3'
-  },
-  {
-    id: 4,
-    label: 'Node 4'
-  },
-  {
-    id: 5,
-    label: 'Node 5'
-  }
-  ]);
+
+  let nodes = new vis.DataSet(
+    [{
+        id: 1,
+        label: 'Node 1'
+      },
+      {
+        id: 2,
+        label: 'Node 2'
+      },
+      {
+        id: 3,
+        label: 'Node 3'
+      },
+      {
+        id: 4,
+        label: 'Node 4'
+      },
+      {
+        id: 5,
+        label: 'Node 5'
+      }
+    ]);
   // create an array with edges
-  const edges = new vis.DataSet([{
-    from: 1,
-    to: 3,
-    width: 16,
-    length: 80 * 1,
-    smooth: false,
-    title: '1st'
-  },
-  {
-    from: 1,
-    to: 2,
-    length: 80 * 2,
-    smooth: false,
-    title: '2st'
-  },
-  {
-    from: 1,
-    to: 4,
-    length: 80 * 3,
-    smooth: false,
-    title: '3st'
-  },
-  {
-    from: 1,
-    to: 5,
-    length: 80 * 4,
-    smooth: false,
-    title: '4st'
-  }
+  let edges = new vis.DataSet([{
+      from: 1,
+      to: 3,
+      width: 16,
+      length: 80 * 1,
+      smooth: false,
+      title: '1st'
+    },
+    {
+      from: 1,
+      to: 2,
+      length: 80 * 2,
+      smooth: false,
+      title: '2st'
+    },
+    {
+      from: 1,
+      to: 4,
+      length: 80 * 3,
+      smooth: false,
+      title: '3st'
+    },
+    {
+      from: 1,
+      to: 5,
+      length: 80 * 4,
+      smooth: false,
+      title: '4st'
+    }
   ]);
   // provide the data in the vis format
-  const data = {
+  let data = {
     nodes,
     edges
   };
   const options = {
-    layout: {
-      hierarchical: true
+    physics: {
+      stabilization: false
     }
   };
   const listJudge = list => {
@@ -108,6 +109,42 @@ function mainController($http, getService, $scope) {
       return item;
     });
   };
+  const createDataPack = (name, list) => {
+    let counter = 1;
+    let temp_node = [];
+    temp_node = list.map(item => {
+      return {
+        id: counter++,
+        label: item.data
+      };
+    });
+    temp_node.push({
+      id: 0,
+      label: name,
+      color: '#edff00'
+    });
+    console.log(temp_node);
+    nodes = new vis.DataSet(temp_node);
+    let temp_edge = [];
+    counter = 1;
+    temp_edge = list.map(item => {
+      if (item.label !== '') {
+        return {
+          from: 0,
+          to: counter++,
+          width: 2 * item.count,
+          length: 30 * Math.ceil(item.disposalDuration),
+          smooth: false,
+          title: item.label
+        };
+      }
+    });
+    edges = new vis.DataSet(temp_edge);
+    data = {
+      nodes,
+      edges
+    };
+  };
   const convertFor = name => {
     const allList = allData;
     am.judgeName = name;
@@ -117,14 +154,9 @@ function mainController($http, getService, $scope) {
     console.log(listForJudge);
     console.log(listLawyer);
     console.log(uniqLowyerList);
+    createDataPack(am.judgeName, uniqLowyerList);
     drawNetwork();
   };
-  // am.selectCb = val => {
-  //   console.log(val);
-  // };
-  // $scope. $watch(am.judgeName, (newValue, oldValue) => {
-  //   console.log(newValue);
-  // });
 
   const drawNetwork = () => {
     const container = document.getElementById('mynetwork');
@@ -133,7 +165,7 @@ function mainController($http, getService, $scope) {
   };
   am.selectcb = val => {
     console.log(val);
-    if (am.judgeName !== val) {
+    if (am.judgeName !== val && am.judgeName !== '') {
       convertFor(val);
     }
   };
