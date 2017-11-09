@@ -86,6 +86,7 @@ global-search-dir {
   padding: 10px;
   border: none;
   border-bottom: solid 2px;
+  font-size: 2em;
 }
 
 .searchBox:focus,

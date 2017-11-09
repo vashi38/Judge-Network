@@ -1,36 +1,4 @@
 /** @ngInject */
-// function searchController($timeout) {
-//   const am = this;
-//   am.globalSearch = '';
-//   am.optselected = '';
-
-// //   setTimeout(() => {
-// //     am.options = am.obj;
-// //   }, 100);
-// //   am.selected = false;
-
-//   am.focus_lost = function () {
-//     $timeout(() => {
-//       am.selected = true;
-//       am.selectOption(am.globalSearch);
-//     }, 100);
-//   };
-//   am.change_selected = function (event) {
-//     if (am.selected == true) {
-//       am.selected = false;
-//     }
-//     if (event.which == 13) {
-//       am.selectOption(am.globalSearch);
-//     }
-//     // am.options = am.obj;
-//   };
-//   am.selectOption = function (opt) {
-//     am.globalSearch = opt;
-//     am.selected = true;
-//     am.optselected = opt;
-//   };
-// }
-
 function searchController($timeout) {
   const am = this;
   am.globalSearch = '';
@@ -70,8 +38,11 @@ function searchController($timeout) {
     am.optselected = opt;
     am.temp = opt;
     am.pointer = -1;
-
     am.onselectcb(opt);
+    let activeElement = document.activeElement;
+    if (activeElement) {
+      activeElement.blur();
+    }
   };
 }
 export const autocomplete = {
