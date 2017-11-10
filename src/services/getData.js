@@ -1,3 +1,4 @@
+/** @ngInject */
 function getService($http) {
   function getData() {
     return $http({

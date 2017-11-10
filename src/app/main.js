@@ -3,7 +3,7 @@ import _ from 'underscore';
 // import angular from 'angular';
 
 // mainController is the controller function for the component main
-
+/** @ngInject */
 function mainController($http, getService, $window) {
   let allData;
   const am = this;
