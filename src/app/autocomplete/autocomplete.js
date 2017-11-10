@@ -8,14 +8,14 @@ function searchController($timeout) {
   am.optselected = '';
 
   am.selected = false;
-
+  // function focusLost is used whenever event focuslost happens on the input text box
   am.focusLost = function () {
     $timeout(() => {
       am.selected = true;
       am.selectOption(am.globalSearch);
     }, 1000);
   };
-
+// Function updateTemp is used to update the temperary selected judge name
   am.updateTemp = function (event) {
     am.selected = false;
     if (event.which === 13) {
@@ -32,6 +32,8 @@ function searchController($timeout) {
       am.pointer = -1;
     }
   };
+
+  // function selectOption is used to store the selected judge name
   am.selectOption = function (opt) {
     am.globalSearch = opt;
     am.selected = true;
@@ -45,6 +47,7 @@ function searchController($timeout) {
     }
   };
 }
+
 export const autocomplete = {
   template: require('./index.html'),
   controller: searchController,

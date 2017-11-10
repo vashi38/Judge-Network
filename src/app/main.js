@@ -2,6 +2,8 @@ import vis from 'vis';
 import _ from 'underscore';
 // import angular from 'angular';
 
+// mainController is the controller function for the component main
+
 function mainController($http, getService) {
   let allData;
   const am = this;
@@ -15,10 +17,14 @@ function mainController($http, getService) {
       stabilization: false
     }
   };
+// function fineDraw is used to redraw the network
   am.fineDraw = () => {
     network = new vis.Network(container, data, options);
     network.redraw();
   };
+
+  // function list judge is used to extract the name of judges from list
+
   const listJudge = list => {
     return _.uniq(list.map(item => {
       if (item.judge !== '') {
@@ -26,11 +32,17 @@ function mainController($http, getService) {
       }
     }));
   };
+  
+  // function listLowyer is used to list the lawyers from list
+
   const listLowyer = list => {
     return [].concat(...list.map(item => {
       return item.lawyer;
     }));
   };
+  
+  // function filterJudge is used to exttract the data for given judgeName from list
+
   const filterJudge = (list, judgeName) => {
     return list.filter(item => {
       if (item.judge === judgeName) {
@@ -38,6 +50,9 @@ function mainController($http, getService) {
       }
     });
   };
+  
+  // function getUniqLowyerList is used to ge the list of unique lawyers from list
+
   const getUniqLowyerList = (allList, list) => {
     const uniqList = _.uniq(list);
     return uniqList.map(item => {
@@ -62,6 +77,9 @@ function mainController($http, getService) {
       }
     });
   };
+  
+  // function crateDatapack is used to create the datapack for the network
+
   const createDataPack = (name, list) => {
     let counter = 1;
     let tempNode = [];
@@ -100,11 +118,17 @@ function mainController($http, getService) {
       edges
     };
   };
+
+  // function drawNetwork is used to draw the network when we change the judge name
+
   const drawNetwork = () => {
     container = document.getElementById('mynetwork');
     network = new vis.Network(container, data, options);
     network.redraw();
   };
+  
+  // function convertFor is used to convert the data received from service in required format
+
   const convertFor = name => {
     const allList = allData;
     am.judgeName = name;
@@ -118,13 +142,17 @@ function mainController($http, getService) {
     drawNetwork();
   };
 
+  // Function selectcb is call back function.This function is used by the child component autocomplete whenever we select the new judge
+
   am.selectcb = val => {
     console.log(val);
     if (am.judgeName !== val && am.judgeName !== '') {
       convertFor(val);
     }
   };
-  // initialize your network!
+
+  // initialize your component
+  
   const init = function () {
     getService.getData().then(result => {
       allData = result;
@@ -133,6 +161,7 @@ function mainController($http, getService) {
       console.log(am.judgeList);
     });
   };
+  
   init();
   // setTimeout(init, 100);
 }
