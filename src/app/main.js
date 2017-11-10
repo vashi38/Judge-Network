@@ -143,7 +143,7 @@ function mainController($http, getService, $window) {
     const listForJudge = filterJudge(allList, am.judgeName);
     const listLawyer = listLowyer(listForJudge);
     const uniqLowyerList = getUniqLowyerList(listForJudge, listLawyer);
-    // console.log(listForJudge);
+    console.log(listForJudge);
     // console.log(listLawyer);
     // console.log(uniqLowyerList);
     createDataPack(am.judgeName, uniqLowyerList);

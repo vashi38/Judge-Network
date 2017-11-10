@@ -8,3 +8,8 @@
 npm install
 
 npm run serve
+
+
+Also hosted on following link:
+
+https://judgenetwork-cee57.firebaseapp.com
