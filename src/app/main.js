@@ -107,6 +107,7 @@ function mainController($http, getService, $window) {
     nodes = new vis.DataSet(tempNode);
     let tempEdge = [];
     counter = 1;
+    // console.log(list);
     tempEdge = list.map(item => {
       if (item.label !== '' && item.label !== null) {
         return {
@@ -115,7 +116,7 @@ function mainController($http, getService, $window) {
           width: 2 * item.count,
           length: 30 * Math.ceil(item.disposalDuration),
           smooth: false,
-          title: item.label
+          title: item.data
         };
       }
     });
@@ -152,14 +153,14 @@ function mainController($http, getService, $window) {
   // Function selectcb is call back function.This function is used by the child component autocomplete whenever we select the new judge
 
   am.selectcb = val => {
-    console.log(val);
+    // console.log(val);
     if (am.judgeName !== val && am.judgeName !== '') {
       const judgeAvailable = allData.filter(item => {
         if (item.judge === val) {
           return item;
         }
       }).length;
-      console.log(judgeAvailable);
+      // console.log(judgeAvailable);
       if (judgeAvailable === 0) {
         $window.alert('No Data found for Judge Name: ' + val);
         am.showNetwork = false;
