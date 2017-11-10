@@ -132,4 +132,29 @@ a:hover {
   border-radius: 7px;
   background-color: rgba(0, 128, 8, 0.53);
   color: white;
+  margin: 5px;
+}
+.autoBox {
+  width:50%;
+}
+@media screen and (max-width: 800px){
+  .autoBox {
+    width:100%;
+  }
+  .myNetworkContainer {
+    width:100%; 
+    height: 80%; 
+    /* z-index: 1; */
+  }   
+}
+
+@media screen and (min-width: 800px){
+  .autoBox {
+    width:50%;
+  }
+  .myNetworkContainer {
+    width:50%; 
+    height: 80%; 
+    /* z-index: 1; */
+  }   
 }
