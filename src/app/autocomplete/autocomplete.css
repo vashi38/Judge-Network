@@ -1,10 +1,10 @@
 .flex {
-  position: absolute;
+  /* position: absolute; */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 20;
-  width: inherit;
+  /* width: inherit; */
 }
 
 global-search-dir {
@@ -57,7 +57,7 @@ global-search-dir {
 
 .sb {
   /* position: fixed; */
-  width: inherit;
+  /* width: inherit; */
   z-index: 10;
   background-color: white;
   height: 84px;
@@ -86,7 +86,7 @@ global-search-dir {
   padding: 10px;
   border: none;
   border-bottom: solid 2px;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .searchBox:focus,

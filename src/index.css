@@ -111,7 +111,25 @@ a:hover {
   margin: 0 0 2rem 0;
 }
 #mynetwork {
-  width: 100%;
-  height: 600px;
   border: 1px solid lightgray;
+  width:100%; 
+  height:95%;
+}
+.mainContainer {
+  flex-direction:column;
+  width:100%; 
+  height:90%;
+}
+.myNetworkContainer {
+  width:50%; 
+  height: 80%; 
+  /* z-index: 1; */
+}
+.beautifyBtn {
+  width: 150px;
+  padding: 5px;
+  border: none;
+  border-radius: 7px;
+  background-color: rgba(0, 128, 8, 0.53);
+  color: white;
 }

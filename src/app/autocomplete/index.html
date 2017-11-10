@@ -1,10 +1,10 @@
 <div class="flex" >
-  <div class="col-lg-6 col-sm-6" style = "width:40%">
+  <div class="col-lg-6 col-sm-6" style = "width:60%">
     <div class="input-group input-group-lg col-lg-12 col-sm-12" style = "width:100%">
       <input id = "GlobalSearch" class="form-control searchBox" type="text" name="globalSearch"
-        value="" placeholder="Search by Name"
+        value="" placeholder="Search by Judge Name"
         aria-discribedby="globalSearchicon" ng-model = "$ctrl.globalSearch"
-         ng-blur = "$ctrl.focusLost()" ng-keyup = "$ctrl.updateTemp($event)">
+         ng-blur = "$ctrl.focusLost()" ng-keyup = "$ctrl.updateTemp($event)" onfocus="this.select();">
     </div>
     <span class = "col-lg-12 " style = "padding:0px;"
       ng-show = "$ctrl.globalSearch!= '' && !$ctrl.selected ">

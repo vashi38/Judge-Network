@@ -1,19 +1,19 @@
-
-<div class="sb" style="width:100%">
-    <auto-complete options="$ctrl.judgeList" optselected="$ctrl.judgeName" style="width:100%" onselectcb = '$ctrl.selectcb'></auto-complete>   
-    
+<div class="flex mainContainer">
+  <div class="sb" style="width:50%">
+      <auto-complete options="$ctrl.judgeList" optselected="$ctrl.judgeName" style="width:100%" onselectcb = '$ctrl.selectcb'></auto-complete>   
+      <input class="beautifyBtn" type="button" value="Beautify Network" ng-click="$ctrl.fineDraw()" ng-show="$ctrl.showNetwork">   
+  </div>
+  
+  <div class="flex myNetworkContainer" style="z-index: 1" ng-show="$ctrl.showNetwork">
+    <div id="mynetwork" ></div>  
+  </div>
 </div>
-
-<div class="flex" style="width:100%; height: 80%; z-index: 1" >
-  <input type="button" value="Fine me" ng-click="$ctrl.fineDraw()"> 
-  <div id="mynetwork" style = "width:50%; height:100%"></div>  
-</div>
-
+<fountain-footer></fountain-footer>
 <!-- <div class="main-container">
   <fountain-header></fountain-header>
   <main class="main">
     <fountain-title></fountain-title>
     <fountain-techs></fountain-techs>
   </main>
-  <fountain-footer></fountain-footer>
+  
 </div> -->

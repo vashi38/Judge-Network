@@ -4,7 +4,7 @@ import _ from 'underscore';
 
 // mainController is the controller function for the component main
 
-function mainController($http, getService) {
+function mainController($http, getService, $window) {
   let allData;
   const am = this;
   let network;
@@ -12,12 +12,19 @@ function mainController($http, getService) {
   let edges;
   let data;
   let container;
+
   const options = {
     physics: {
-      stabilization: false
+      hierarchicalRepulsion: {
+        centralGravity: 0
+      },
+      maxVelocity: 88,
+      minVelocity: 0.75,
+      solver: 'hierarchicalRepulsion',
+      timestep: 0.6
     }
   };
-// function fineDraw is used to redraw the network
+  // function fineDraw is used to redraw the network
   am.fineDraw = () => {
     network = new vis.Network(container, data, options);
     network.redraw();
@@ -32,7 +39,7 @@ function mainController($http, getService) {
       }
     }));
   };
-  
+
   // function listLowyer is used to list the lawyers from list
 
   const listLowyer = list => {
@@ -40,7 +47,7 @@ function mainController($http, getService) {
       return item.lawyer;
     }));
   };
-  
+
   // function filterJudge is used to exttract the data for given judgeName from list
 
   const filterJudge = (list, judgeName) => {
@@ -50,7 +57,7 @@ function mainController($http, getService) {
       }
     });
   };
-  
+
   // function getUniqLowyerList is used to ge the list of unique lawyers from list
 
   const getUniqLowyerList = (allList, list) => {
@@ -72,12 +79,12 @@ function mainController($http, getService) {
       });
       return item;
     }).filter(item => {
-      if (item.data !== null && item.data !== '') {
+      if (item.data !== null && item.data !== '' && item.data !== 'None') {
         return item;
       }
     });
   };
-  
+
   // function crateDatapack is used to create the datapack for the network
 
   const createDataPack = (name, list) => {
@@ -96,7 +103,7 @@ function mainController($http, getService) {
       label: name,
       color: '#edff00'
     });
-    console.log(tempNode);
+    // console.log(tempNode);
     nodes = new vis.DataSet(tempNode);
     let tempEdge = [];
     counter = 1;
@@ -126,7 +133,7 @@ function mainController($http, getService) {
     network = new vis.Network(container, data, options);
     network.redraw();
   };
-  
+
   // function convertFor is used to convert the data received from service in required format
 
   const convertFor = name => {
@@ -135,9 +142,9 @@ function mainController($http, getService) {
     const listForJudge = filterJudge(allList, am.judgeName);
     const listLawyer = listLowyer(listForJudge);
     const uniqLowyerList = getUniqLowyerList(listForJudge, listLawyer);
-    console.log(listForJudge);
-    console.log(listLawyer);
-    console.log(uniqLowyerList);
+    // console.log(listForJudge);
+    // console.log(listLawyer);
+    // console.log(uniqLowyerList);
     createDataPack(am.judgeName, uniqLowyerList);
     drawNetwork();
   };
@@ -147,23 +154,37 @@ function mainController($http, getService) {
   am.selectcb = val => {
     console.log(val);
     if (am.judgeName !== val && am.judgeName !== '') {
-      convertFor(val);
+      const judgeAvailable = allData.filter(item => {
+        if (item.judge === val) {
+          return item;
+        }
+      }).length;
+      console.log(judgeAvailable);
+      if (judgeAvailable === 0) {
+        $window.alert('No Data found for Judge Name: ' + val);
+        am.showNetwork = false;
+      }      else {
+        convertFor(val);
+        am.showNetwork = true;
+      }
     }
   };
 
   // initialize your component
-  
+
   const init = function () {
+    am.showNetwork = false;
     getService.getData().then(result => {
       allData = result;
       am.judgeList = listJudge(allData);
       convertFor('S/sh.rajendra');
-      console.log(am.judgeList);
+      // console.log(am.judgeList);
     });
   };
-  
+
   init();
   // setTimeout(init, 100);
+  am.showNetwork = false;
 }
 
 export const main = {
